@@ -16,7 +16,7 @@ class RedmineClient:
     def get_issue(self, issue_id: int | str) -> dict:
         response = self.session.get(
             f"{self.base_url}/issues/{issue_id}.json",
-            params={"include": "attachments"},
+            params={"include": "attachments,journals"},
         )
         response.raise_for_status()
         return response.json()
