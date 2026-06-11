@@ -3,6 +3,7 @@ import json
 import sys
 from pathlib import Path
 
+from . import __version__
 from .config import load_config
 from .redmine import RedmineClient
 
@@ -16,8 +17,9 @@ def _resolve_paths(output_dir: str, issue_id: str) -> tuple[Path, Path]:
 def main():
     parser = argparse.ArgumentParser(
         prog="redpyne",
-        description="Download a Redmine issue and its attachments.",
+        description=f"redpyne {__version__} — Download a Redmine issue and its attachments.",
     )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("issue_id", help="Issue number (e.g. 123456)")
     parser.add_argument(
         "--output", default=".", metavar="DIR",
