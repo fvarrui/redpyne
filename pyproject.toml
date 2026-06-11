@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "redpyne"
+version = "0.1.0"
+description = "CLI tool for downloading Redmine issues and their attachments"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["requests"]
+
+[project.scripts]
+redpyne = "redpyne.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/redpyne"]
