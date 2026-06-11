@@ -64,23 +64,45 @@ El API token se puede obtener en Redmine desde **Mi cuenta → API access key**.
 
 ## Uso
 
-```bash
-redpyne <número_de_issue>
+```
+redpyne [opciones] <número_de_issue>
 ```
 
-### Ejemplo
+| Opción | Descripción |
+|---|---|
+| `--output DIR` | Directorio padre donde se creará el directorio de la issue (por defecto: directorio actual). |
+| `--url URL` | URL base de Redmine (sobreescribe el config). |
+| `--api-token TOKEN` | API token de Redmine (sobreescribe el config). |
+| `--username USER` | Usuario de Redmine (sobreescribe el config). |
+| `--password PASS` | Contraseña de Redmine (sobreescribe el config). |
+
+### Ejemplos
 
 ```bash
+# Crea ./123456/issue.json y ./123456/attachments/
 redpyne 123456
 
-# en modo desarrollo con uv
+# Crea ./proyectos/123456/issue.json y ./proyectos/123456/attachments/
+redpyne --output proyectos 123456
+
+# Sin fichero de configuración, pasando las credenciales por parámetro
+redpyne --url https://redmine.ejemplo.com --api-token abc123 123456
+
+# En modo desarrollo con uv
 uv run redpyne 123456
 ```
 
-Esto genera:
+### Estructura de salida
 
-- `123456.json` — datos completos del issue en formato JSON.
-- `attachments/` — directorio con todos los archivos adjuntos del issue.
+Siempre se crea un directorio con el ID de la issue. Dentro, el fichero `issue.json` y, si hay adjuntos, el directorio `attachments/`.
+
+```
+[--output DIR/]<id>/
+  issue.json
+  attachments/
+    documento.pdf
+    imagen.png
+```
 
 ## Licencia
 
